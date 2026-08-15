@@ -2,8 +2,8 @@ BEGIN
 	DENOTED QUERY;
 	DENOTED T;
 	DENOTED F;
-	T := "sun";
-	F := "moon";
+	T := "hidali";
+	F := "kathi";
 
 	INPUT QUERY;
 	IF QUERY ? T THEN OUTPUT "TRUE"; 
