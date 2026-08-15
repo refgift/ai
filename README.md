@@ -4,6 +4,7 @@
 - Written in the "first" computer language by me.
 - Answers with TRUE or FALSE or nothing. 
 - Ends on TRUE.
+- Recognizes 0 though 10, the previous version was 1 through 4.
 ## Example
--  echo "the cooked egg is food" | ./ai
+-  echo "10" | ./ai
 TRUE
