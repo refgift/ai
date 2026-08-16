@@ -9,10 +9,11 @@ BEGIN
 
 	DENOTED OUTNESS;
 
-	INPUT FEED;
+	FEED := RANDOM;
+
 	IF FEED < 1 THEN FEED := 0; 
 	FEED := FEED % 9;
-	IF FEED < 1 THEN FEED := 9;
+	IF FEED = 0 THEN FEED := 9;
 		IF A = -1 THEN A := FEED;
 		IF A != -1 THEN IF B = -1 THEN B := FEED;
 		IF A > -1 THEN IF B > -1 THEN 
@@ -47,6 +48,17 @@ BEGIN
 				IF A = 2 THEN IF B = 7 THEN OUTNESS := "2?7";
 				IF A = 2 THEN IF B = 8 THEN OUTNESS := "2?8";
 				IF A = 2 THEN IF B = 9 THEN OUTNESS := "2?9";
+
+				IF A = 3 THEN IF B = 0 THEN OUTNESS := "3?0";
+				IF A = 3 THEN IF B = 1 THEN OUTNESS := "3?1";
+				IF A = 3 THEN IF B = 2 THEN OUTNESS := "3?2";
+				IF A = 3 THEN IF B = 4 THEN OUTNESS := "3?4";
+				IF A = 3 THEN IF B = 5 THEN OUTNESS := "3?5";
+				IF A = 3 THEN IF B = 6 THEN OUTNESS := "3?6";
+				IF A = 3 THEN IF B = 7 THEN OUTNESS := "3?7";
+				IF A = 3 THEN IF B = 8 THEN OUTNESS := "3?8";
+				IF A = 3 THEN IF B = 9 THEN OUTNESS := "3?9";
+
 			END ;			
 	OUTPUT OUTNESS;
 END

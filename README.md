@@ -13,3 +13,13 @@ TRUE
 
 -  echo "4?3" | ./ai 
 TRUE 
+
+# Testing
+## Proving the OR operation across the permutations
+   if single digits. In progress.
+* first < ai.fst | cc -x c -o ai -
+* first < fai.fst | cc -x c -o fai -
+* ./fai | ./ai
+
+# Dependency
+* https://github.com/refgift/first
