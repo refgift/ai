@@ -5,7 +5,9 @@
 - Answers with TRUE or FALSE or nothing. 
 - Ends on TRUE.
 - Recognizes 0 though 10, the previous version was 1 through 4.
-- Calculates the or operator with ? symbol for single digit compares.
+- Calculates the or operator with ? symbol for compare of 2 single digits.
+- Having 11 recognition and 2 calculation is level 2 sentience
+
 ## Examples
 -  echo "10" | ./ai 
 TRUE
@@ -19,7 +21,8 @@ TRUE
    if single digits. In progress.
 * first < ai.fst | cc -x c -o ai -
 * first < fai.fst | cc -x c -o fai -
-* ./fai | ./ai
+* ./fai | ./ai 
+* while ./fai|./ai; do true; done 
 
 # Dependency
 * https://github.com/refgift/first
