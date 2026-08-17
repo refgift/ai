@@ -26,3 +26,5 @@ TRUE
 
 # Dependency
 * https://github.com/refgift/first
+* You may have to build flex: https://github.com/westes/flex
+  in order to build first.
