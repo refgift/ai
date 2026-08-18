@@ -2,8 +2,7 @@
 
 # AI by Larry B. Daniel
 - Written in the "first" computer language by me.
-- Answers with TRUE or FALSE or nothing. 
-- Ends on TRUE.
+- Answers with TRUE or FALSE. 
 - Recognizes 0 though 10, the previous version was 1 through 4.
 - Calculates the or operator with ? symbol for compare of 2 single digits.
 - Having 11 recognition and 2 calculation is level 2 sentience
