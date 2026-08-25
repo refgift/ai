@@ -16,6 +16,9 @@
 * A vendor wiil bring an AI to test and the Sapience Test
   will sound off as the vendor AI is acting. The test will
   say "Calculation" or "Recognition".
+* The result will be a calculation count and a recognition count.
+* From the addition of the counts is a sapience number.
+* From the sapience number, the license price is determined.
 
 ## Example license certificate
 <img width="768" height="1152" alt="image" src="https://github.com/user-attachments/assets/fa192923-54c8-44ca-989a-f68c112835ee" />
