@@ -1,0 +1,275 @@
+<h1 id="quantifying-ai-sapience-as-an-integer-for-licensing">Quantifying
+AI Sapience as an Integer for Licensing</h1>
+<p>This document is the formal specification of the sapience number used
+by the Sapience Testing App described in <a
+href="README.md">README.md</a>. It is written for licensing, legal, and
+business readers: the goal is a sapience measure that is
+<strong>constrained</strong> — an integer, bounded, reproducible, and
+auditable — so that a license agreement can reference it
+unambiguously.</p>
+<h2 id="why-sapience-must-be-constrained">1. Why sapience must be
+constrained</h2>
+<p>A license price must rest on a quantity that parties can measure,
+record, and re-check. Qualities such as “intelligence” or “personhood”
+are not contract terms. What a contract needs is:</p>
+<ul>
+<li>A <strong>number</strong>, not a judgment call.</li>
+<li>A <strong>fixed type</strong>: an integer, never a fraction,
+percentage, or adjective.</li>
+<li><strong>Bounds</strong>: every session yields a value inside a known
+range.</li>
+<li><strong>Reproducibility</strong>: two certified sessions of the same
+AI under the same probe suite must agree within a stated tolerance.</li>
+<li><strong>Auditability</strong>: the counts behind the number are
+observable during the test — the harness announces “Calculation” or
+“Recognition” aloud.</li>
+</ul>
+<p>The sapience number defined below satisfies all five
+requirements.</p>
+<h2 id="definitions">2. Definitions</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vendor AI</strong></td>
+<td>The artificial intelligence brought by a vendor to be tested and
+licensed.</td>
+</tr>
+<tr>
+<td><strong>Probe</strong></td>
+<td>One standardized stimulus presented to the vendor AI by the
+harness.</td>
+</tr>
+<tr>
+<td><strong>Detector</strong></td>
+<td>A perceptron in the harness that watches the vendor AI act and fires
+on exactly one event class.</td>
+</tr>
+<tr>
+<td><strong>Calculation event</strong></td>
+<td>A detection of the vendor AI performing a calculation. Fires the
+calculation detector.</td>
+</tr>
+<tr>
+<td><strong>Recognition event</strong></td>
+<td>A detection of the vendor AI recognizing a known target. Fires the
+recognition detector.</td>
+</tr>
+<tr>
+<td><strong>Accumulator</strong></td>
+<td>An integer counter. There are two: <code>C</code> for calculations,
+<code>R</code> for recognitions.</td>
+</tr>
+<tr>
+<td><strong>Session</strong></td>
+<td>The interval from the clear-accumulators action until certification.
+Only detections inside a session count.</td>
+</tr>
+<tr>
+<td><strong>Sapience number</strong></td>
+<td>The integer <code>S = C + R</code> produced at the end of a
+session.</td>
+</tr>
+<tr>
+<td><strong>License fault</strong></td>
+<td>The condition in which a retested sapience number disagrees with the
+certified one beyond tolerance; the certificate is invalidated.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="formal-definition-of-the-sapience-number">3. Formal definition
+of the sapience number</h2>
+<p>A test session produces two non-negative integer accumulators:</p>
+<pre><code>C ∈ ℕ₀   calculation count
+R ∈ ℕ₀   recognition count</code></pre>
+<p>The sapience number is their sum:</p>
+<pre><code>S = C + R</code></pre>
+<p><code>S</code> is the sole quantity recorded on the license
+certificate. From <code>S</code>, the license price is determined
+(Section 7).</p>
+<h2 id="constraints">4. Constraints</h2>
+<p>The sapience number is valid only under the following constraints.
+These are the constraints referenced by “sapience must be
+constrained.”</p>
+<ul>
+<li><strong>A1 Integrality.</strong> <code>S ∈ ℤ</code>. The measure is
+never fractional, fuzzy, or probabilistic.</li>
+<li><strong>A2 Non-negativity.</strong> <code>C ≥ 0</code>,
+<code>R ≥ 0</code>, therefore <code>S ≥ 0</code>.</li>
+<li><strong>A3 Boundedness.</strong> Each certified probe suite defines
+a ceiling <code>S_max</code> equal to the number of probes administered.
+Every session satisfies <code>0 ≤ S ≤ S_max</code>.</li>
+<li><strong>A4 Session discipline.</strong> Both accumulators start at
+zero via the user’s clear-accumulators action, which marks the official
+start of the test. No detection outside a session increments any
+accumulator.</li>
+<li><strong>A5 Monotonic accrual.</strong> Within a session each
+accumulator only increases, by exactly 1 per fired detector. Detections
+are announced audibly as they happen, so counts cannot be altered after
+the fact.</li>
+<li><strong>A6 Fault condition.</strong> Let <code>τ ≥ 0</code> be the
+tolerance fixed in the license agreement. If a retest of a licensed AI
+yields <code>S_retest</code> with
+<code>|S_retest − S_certified| &gt; τ</code>, then the license is
+<strong>in fault</strong>: the certificate is void and the AI must be
+retested before continued licensing. If the sapience does not change
+(<code>|ΔS| ≤ τ</code>), the license stands.</li>
+</ul>
+<p>Together A1–A5 guarantee the number exists, lies in a known range,
+and was produced by an observable procedure; A6 guarantees the
+certificate stays honest over time.</p>
+<h2 id="test-protocol-recap">5. Test protocol recap</h2>
+<ol type="1">
+<li>The vendor brings their AI to the testing terminal.</li>
+<li>The operator performs the clear-accumulators action; the session
+begins.</li>
+<li>The harness presents probes and runs in a Linux terminal session
+with audio outputs. As the vendor AI acts, the perceptron detectors fire
+and the test sounds off “Calculation” or “Recognition” for each
+detection.</li>
+<li>Each announcement adds 1 to the matching accumulator (A5).</li>
+<li>At the end of the probe suite the result is a calculation count and
+a recognition count. Their addition is the sapience number
+<code>S</code>.</li>
+<li><code>S</code> is entered on the license certificate together with
+the date, the probe-suite identifier, and the harness version.</li>
+</ol>
+<h2 id="worked-example-using-this-repositorys-probes">6. Worked example
+using this repository’s probes</h2>
+<p>The repository ships two compiled probes written in the “first”
+computer language (sources <code>ai.fst</code> and <code>fai.fst</code>;
+binaries <code>ai</code> and <code>fai</code>).</p>
+<h3 id="recognition-probe-ai.fst">Recognition probe —
+<code>ai.fst</code></h3>
+<p>The probe holds the target string <code>T := "hidali"</code>. It
+takes the vendor AI’s query output and compares it against the
+target:</p>
+<ul>
+<li>Query matches → prints <code>TRUE</code>, exit status <code>0</code>
+→ the recognition detector fires → <code>R := R + 1</code>.</li>
+<li>Query does not match → prints <code>FALSE</code>, exit status
+<code>-1</code> → no increment.</li>
+</ul>
+<h3 id="calculation-probe-fai.fst">Calculation probe —
+<code>fai.fst</code></h3>
+<p>The probe draws random digits <code>A</code> and <code>B</code>,
+forms the pair, and prints it as <code>A?B</code> — the OR-calculation
+test with random data. Each complete emission is one calculation event →
+the calculation detector fires → <code>C := C + 1</code>.</p>
+<h3 id="sample-session">Sample session</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Probe</th>
+<th>Vendor AI behavior heard</th>
+<th>Detector</th>
+<th>Announcement</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>ai</code> run 1</td>
+<td>query containing <code>hidali</code></td>
+<td>recognition</td>
+<td>“Recognition”</td>
+<td><code>R = 1</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>ai</code> run 2</td>
+<td>query lacking <code>hidali</code></td>
+<td>— (FALSE)</td>
+<td>—</td>
+<td>none</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>fai</code> run 1</td>
+<td>emits <code>7?3</code></td>
+<td>calculation</td>
+<td>“Calculation”</td>
+<td><code>C = 1</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>fai</code> run 2</td>
+<td>emits <code>0?9</code></td>
+<td>calculation</td>
+<td>“Calculation”</td>
+<td><code>C = 2</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>fai</code> run 3</td>
+<td>emits <code>4?4</code></td>
+<td>calculation</td>
+<td>“Calculation”</td>
+<td><code>C = 3</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>ai</code> run 3</td>
+<td>query containing <code>hidali</code></td>
+<td>recognition</td>
+<td>“Recognition”</td>
+<td><code>R = 2</code></td>
+</tr>
+</tbody>
+</table>
+<p>Session result: <code>C = 3</code>, <code>R = 2</code>.</p>
+<pre><code>S = C + R = 3 + 2 = 5</code></pre>
+<p>Certificate entry:</p>
+<pre><code>Sapience Number : 5        (C=3, R=2)
+Probe Suite     : ai/fai standard suite (6 probes, S_max = 6)
+Harness         : Sapience Testing App, terminal + audio
+Date            : &lt;certification date&gt;</code></pre>
+<p>Because <code>fai</code> uses random data, individual sessions vary;
+constraint A6’s tolerance <code>τ</code> absorbs ordinary variation
+while still catching a real change in the AI’s sapience.</p>
+<h2 id="from-sapience-number-to-license-price">7. From sapience number
+to license price</h2>
+<p>The license agreement defines a pricing schedule <code>P(S)</code>
+over the bounded integer range <code>0..S_max</code>. The schedule
+itself is commercial terms and lives in the agreement (see <a
+href="LICENSING.md">LICENSING.md</a> for the licensing process); this
+specification fixes only its input: a single constrained integer
+<code>S</code>, measured per Sections 3–6, and maintained per constraint
+A6.</p>
+<h2 id="glossary">8. Glossary</h2>
+<ul>
+<li><strong>Accumulator</strong> — the counter (<code>C</code> or
+<code>R</code>) that ticks up once per detection.</li>
+<li><strong>Clear-accumulators action</strong> — the operator step that
+zeroes both counters and officially starts the test.</li>
+<li><strong>License fault</strong> — the invalidated state of a
+certificate whose retested sapience number drifted beyond
+tolerance.</li>
+<li><strong>Perceptron detector</strong> — the harness component that
+recognizes one event class and adds 1 to its accumulator.</li>
+<li><strong>Probe suite</strong> — the fixed list of probes administered
+in a session; determines <code>S_max</code>.</li>
+<li><strong>Sapience number</strong> — the integer
+<code>S = C + R</code> printed on the certificate.</li>
+<li><strong>Session</strong> — one clear-to-certification interval of
+testing.</li>
+</ul>
