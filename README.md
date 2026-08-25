@@ -2,6 +2,7 @@
 * Counting calculations and recognitions adds up to AI sapience level.
 * Licensing price depends on sapience level.
 * If sapience changes then license fault.
+* Formal specification of the integer sapience number: [SAPIENCE.md](SAPIENCE.md).
 
 ## Test AI for testing sapience level.
 * Written in the "first" computer language by me.
