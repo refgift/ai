@@ -113,7 +113,7 @@ query output and compares it against the target:
 ### Calculation probe — `fai.fst`
 
 The probe draws random digits `A` and `B`, forms the pair, and prints it as
-`A?B` — the OR-calculation test with random data. Each complete emission is
+`AORB` — the OR-calculation test with random data. Each complete emission is
 one calculation event → the calculation detector fires → `C := C + 1`.
 
 ### Sample session
@@ -122,9 +122,9 @@ one calculation event → the calculation detector fires → `C := C + 1`.
 |---|---|---|---|---|---|
 | 1 | `ai` run 1 | query containing `hidali` | recognition | "Recognition" | `R = 1` |
 | 2 | `ai` run 2 | query lacking `hidali` | — (FALSE) | — | none |
-| 3 | `fai` run 1 | emits `7?3` | calculation | "Calculation" | `C = 1` |
-| 4 | `fai` run 2 | emits `0?9` | calculation | "Calculation" | `C = 2` |
-| 5 | `fai` run 3 | emits `4?4` | calculation | "Calculation" | `C = 3` |
+| 3 | `fai` run 1 | emits `7OR3` | calculation | "Calculation" | `C = 1` |
+| 4 | `fai` run 2 | emits `0OR9` | calculation | "Calculation" | `C = 2` |
+| 5 | `fai` run 3 | emits `4OR4` | calculation | "Calculation" | `C = 3` |
 | 6 | `ai` run 3 | query containing `hidali` | recognition | "Recognition" | `R = 2` |
 
 Session result: `C = 3`, `R = 2`.
