@@ -76,10 +76,12 @@ the constraints referenced by "sapience must be constrained."
   `|S_retest − S_certified| > τ`, then the license is **in fault**: the
   certificate is void and the AI must be retested before continued licensing.
   If the sapience does not change (`|ΔS| ≤ τ`), the license stands.
+* **A7 Comprehensive Evaluation.** The space character is significant in calculations.
+  DIGIT SPACE OR SPACE DIGIT is different from DIGIT OR DIGIT
 
 Together A1–A5 guarantee the number exists, lies in a known range, and was
 produced by an observable procedure; A6 guarantees the certificate stays
-honest over time.
+honest over time. A7 guarantees that the function exists..
 
 ## 5. Test protocol recap
 
