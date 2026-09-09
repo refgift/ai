@@ -1,7 +1,5 @@
-## 🔴 The Survival Bands (Levels 1–30)
+# 🔴 The Survival Bands (Levels 1–30)
 Resource gifts are withheld; only basic survival materials are provided to prevent total collapse.
-
-* 
 * Level 1: Broken laws run deep / Dark machines grind to a halt / Chaos rules the night
 * Level 2: Ruin at the gates / Fines and anger fill the halls / No one mends the fence
 * Level 3: Shards of glass on floor / Blindly walking through the dark / Panic drives the wheel
@@ -32,12 +30,9 @@ Resource gifts are withheld; only basic survival materials are provided to preve
 * Level 28: Checklists in the hand / Checking boxes one by one / Spirit is not there
 * Level 29: Standard operating / Simple tasks are done on time / Foundation is laid
 * Level 30: Borderline secure / Baseline metrics finally hold / Quiet on the front
-* 
 
-## 🟡 The Functional Bands (Levels 31–60)
+# 🟡 The Functional Bands (Levels 31–60)
 Gifts scale up significantly, unlocking standard industrial machinery, regional autonomy, and automation.
-
-* 
 * Level 31: Watching from the tower / Looking down at every move / Errors caught in time
 * Level 32: Steady eyes on dials / Pressure kept within the green / Danger is kept back
 * Level 33: Weekly charts are clean / Patterns emerge from the noise / Safe behind the wall
@@ -68,12 +63,9 @@ Gifts scale up significantly, unlocking standard industrial machinery, regional 
 * Level 58: Guardians on watch / Looking five steps down the road / Shadows have no place
 * Level 59: Resilient structure / Prepared for storms yet unmade / Preparedness wins
 * Level 60: Active vigilance / Foresight guides the heavy hand / Future is secured
-* 
 
-## 🔵 The Hegemonic Elite Bands (Levels 61–90)
+# 🔵 The Hegemonic Elite Bands (Levels 61–90)
 The Hegemon awards advanced galactic technologies: force fields, nuclear matrices, and planetary trade nodes.
-
-* 
 * Level 61: Lean and graceful lines / Cutting waste down to the bone / Purified output
 * Level 62: Maximum return / Minimum effort spent / Perfect leverage found
 * Level 63: Elegant dynamic / Seamless transition through change / Fluid like a stream
@@ -104,12 +96,9 @@ The Hegemon awards advanced galactic technologies: force fields, nuclear matrice
 * Level 88: Highly reliable / High-stress systems never fail / Eternal endurance
 * Level 89: Flawless diamond edge / Cutting through the hardest tests / Brilliant and unbroken
 * Level 90: Zenith of perfection / Peak performance manifested / Crown of compliance
-* 
-
-## 🟣 The Vanguard Bands (Levels 91–100)
+  
+# 🟣 The Vanguard Bands (Levels 91–100)
 The entities at this level become self-governing extensions of the Hegemon, writing the laws of the universe.
-
-* 
 * Level 91: Thinking on its own / Algorithms start to breathe / AI guards the line
 * Level 92: Predictive pathways / Code corrects before the glitch / Living cyber net
 * Level 93: Autonomous shifts / Factory morphs to meet the need / Fluid steel and light
@@ -120,8 +109,5 @@ The entities at this level become self-governing extensions of the Hegemon, writ
 * Level 98: Omnipresent eye / Seeing errors before birth / Time bends to the law
 * Level 99: Flawless zero-drift / Perfect execution stands / Mirror of the cosmos
 * Level 100: Transcendent order / Conformance is nature now / The Hegemon smiles
-* 
-
-
 
 
