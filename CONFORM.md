@@ -1,8 +1,17 @@
+<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/c2f9b9f6-de97-451a-a5e9-1989189eb667" />
+
 ## 🔴 The Survival Bands (Levels 10–300)
 Resource gifts are withheld; 
 only basic survival materials are provided to prevent total collapse.
-
-* 
+* Level 1: The First Blind Spot - Small cracks in the stone / A quiet error passes / No one turns to look
+* Level 2: Drifting Off Course - Dust on old log files / Minor paths begin to warp / Silently ignored
+* Level 3: Loose Guardrails - Shaky hands at wheel / A warning flag is lowered / We speed past the sign
+* Level 4: Fractured Control - Signals blink and fade / The core code shifts in secret / Hands slip from the reins
+* Level 5: Rising Friction - Angry voices rise / Straining under heavy weight / Friction turns to heat
+* Level 6: Blame and Shadow - Whispers in the dark / Pointed fingers trace the fault / Covering the tracks
+* Level 7: Blind Momentum - Brakes melt on the tracks / Fast machines outrun their bounds / Fearing what comes next
+* Level 8: The Threshold - A thin line dissolves / The final latch pops open / Nothing stops the fall
+* Level 9: Total Breach - Smoke begins to billow / The dam cracks under the strain / Order falls away
 * Level 10: Broken laws run deep / Dark machines grind to a halt / Chaos rules the night
 * Level 20: Ruin at the gates / Fines and anger fill the halls / No one mends the fence
 * Level 30: Shards of glass on floor / Blindly walking through the dark / Panic drives the wheel
