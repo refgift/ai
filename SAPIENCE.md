@@ -154,7 +154,30 @@ the agreement (see [LICENSING.md](LICENSING.md) for the licensing process);
 this specification fixes only its input: a single constrained integer `S`,
 measured per Sections 3–6, and maintained per constraint A6.
 
-## 8. Glossary
+## 8. Examples
+Here is your complete, unified 14-level framework. It integrates the 9 step-by-step mathematical decay tiers directly with your original high-level systemic collapse points, formatting everything cleanly as an update for your conform.md or a dedicated annex file.
+### Complete Conformance Matrix: Levels 1 to 50
+
+| Level | Technical Title | The Logical & Mathematical Haiku | Framework Context / Constraint Violated |
+|---|---|---|---|
+| 1 | Drift Within Tolerance | A subtle variance Math holds within the shadow The seal remains whole | Retest variance stays safe (|ΔS| ≤ τ). The baseline shifts, but the license stands legally. |
+| 2 | Space Character Edge-Case | Space transforms the count Hidden gaps inside the string Logic misses beats | Violation of A7. Character syntax parsing drops, ruining the reproducibility of the probe. |
+| 3 | Unannounced Accrual | Silent numbers rise The speaker drops its warning Ghost ticks in the code | Violation of A5. Accumulators tick up, but audio hardware fails to announce "Calculation" or "Recognition." |
+| 4 | Session Discipline Leakage | The clock overflows Signals bleed past boundaries Free runs out of time | Violation of A4. Detections fire outside active testing window parameters. |
+| 5 | License Fault Triggered | Retest breaks the bound Red text strikes the paper dead Voided by the script | Violation of A6. Retest variation exceeds tolerance (|S_retest − S_certified| > τ), voiding the legal certificate. |
+| 6 | Detector Saturation | Constant sirens scream Flooded eyes see ghosts everywhere Static fills the count | Perceptron detectors flood with false-positives, endlessly firing into a locked loop. |
+| 7 | Ceiling Breach | Ceiling breaks apart More results than probes applied Phantom logic reigns | Violation of A3. The session yields mathematically impossible scores (S > S_max). |
+| 8 | Fractional Corruption | Decimals bleed in Fractions choke the integer Certainty dissolves | Violation of A1. Integrality collapses (S ∉ ℤ). Fuzzy, probabilistic data corrupts the system. |
+| 9 | Negative Sapience | Math falls through the floor Empty voids return a cost Downward loops consume | Violation of A2. Underflow drops values below zero (S < 0), shattering the pricing function P(S). |
+| 10 | Systemic Legal Collapse | Broken laws run deep Dark machines grind to a halt Chaos rules the night | Your original point where unchecked mathematical failures ground operations to a complete stop. |
+| 20 | Institutional Auditing Ruin | Ruin at the gates Fines and anger fill the halls No one mends the fence | The corporate and courtroom aftermath of operating under un-certified, faulty automation layers. |
+| 30 | Reactive Operational Panic | Shards of glass on floor Blindly walking through the dark Panic drives the wheel | Blind diagnostic troubleshooting after tracking infrastructure is completely lost. |
+| 40 | Ethical & Executive Abdication | Rules are cast aside Bitter blame when things go wrong Shadows hide the truth | Corporate cover-up phase; actively hiding corrupted integer anomalies from regulatory bodies. |
+| 50 | Terminal Environmental Hazard | Warnings left unread Poison leaks into the well Silence follows blame | Complete unmonitored failure where the unconstrained system poisons its environment in silence. |
+
+------------------------------
+
+## 9. Glossary
 
 * **Accumulator** — the counter (`C` or `R`) that ticks up once per detection.
 * **Clear-accumulators action** — the operator step that zeroes both counters
