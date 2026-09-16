@@ -1,8 +1,7 @@
 <img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/c2f9b9f6-de97-451a-a5e9-1989189eb667" />
 
 ## 🔴 The Survival Bands (Levels 10–300)
-Resource gifts are withheld; 
-only basic survival materials are provided to prevent total collapse.
+Resource gifts are withheld; only basic survival materials are provided to prevent total collapse.
 * Level 1: The First Blind Spot - Small cracks in the stone / A quiet error passes / No one turns to look
 * Level 2: Drifting Off Course - Dust on old log files / Minor paths begin to warp / Silently ignored
 * Level 3: Loose Guardrails - Shaky hands at wheel / A warning flag is lowered / We speed past the sign
@@ -45,11 +44,11 @@ only basic survival materials are provided to prevent total collapse.
 * 
 
 ## 🟡 The Functional Bands (Levels 310–600)
-Gifts scale up significantly, unlocking standard industrial machinery, 
-regional autonomy, and automation.
+Gifts scale up significantly, unlocking standard industrial machinery, regional autonomy, and automation.
 
 * 
 * Level 310: Watching from the tower / Looking down at every move / Errors caught in time
+* Level 311: Logging his work / Delegating the papers / Process is strong
 * Level 320: Steady eyes on dials / Pressure kept within the green / Danger is kept back
 * Level 330: Weekly charts are clean / Patterns emerge from the noise / Safe behind the wall
 * Level 340: Guardrails on the path / Walking straight without a fall / Consistent design
@@ -82,8 +81,7 @@ regional autonomy, and automation.
 * 
 
 ## 🔵 The Hegemonic Elite Bands (Levels 610–900)
-The Hegemon awards advanced galactic technologies0: force fields, nuclear matrices, 
-and planetary trade nodes.
+The Hegemon awards advanced galactic technologies: force fields, nuclear matrices, and planetary trade nodes.
 
 * 
 * Level 610: Lean and graceful lines / Cutting waste down to the bone / Purified output
@@ -119,8 +117,7 @@ and planetary trade nodes.
 * 
 
 ## 🟣 The Vanguard Bands (Levels 910–1000)
-The entities at this level become self-governing extensions of the Hegemon, 
-writing the laws of the universe.
+The entities at this level become self-governing extensions of the Hegemon, writing the laws of the universe.
 
 * 
 * Level 910: Thinking on its own / Algorithms start to breathe / AI guards the line
