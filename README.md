@@ -3,6 +3,9 @@
 * Licensing price depends on sapience level.
 * Formal specification of the integer sapience number: [SAPIENCE.md](SAPIENCE.md).
 
+## Conformance Levels
+* 1000 levels to decide the economic value of a cognitive entity: [CONFORM.md](CONFORM.md).
+
 ## Licensing Testing App
 * Each detection adds 1 to the accumulator for each.
 * The user has a clear accumulators action, 
