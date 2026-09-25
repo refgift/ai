@@ -1,7 +1,8 @@
 <img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/c2f9b9f6-de97-451a-a5e9-1989189eb667" />
 
-## 🔴 The Survival Bands (Levels 10–300)
+# 🔴 The Survival Bands (Levels 1–309)
 Resource gifts are withheld; only basic survival materials are provided to prevent total collapse.
+
 * Level 1: The First Blind Spot - Small cracks in the stone / A quiet error passes / No one turns to look
 * Level 2: Drifting Off Course - Dust on old log files / Minor paths begin to warp / Silently ignored
 * Level 3: Loose Guardrails - Shaky hands at wheel / A warning flag is lowered / We speed past the sign
@@ -313,7 +314,7 @@ Resource gifts are withheld; only basic survival materials are provided to preve
 * Level 309: Watching from on high / Is not distance, it is care / Errors meet a name
 * 
 
-## 🟡 The Functional Bands (Levels 310–600)
+# 🟡 The Functional Bands (Levels 310–600)
 Gifts scale up significantly, unlocking standard industrial machinery, regional autonomy, and automation.
 
 * 
@@ -619,7 +620,7 @@ Gifts scale up significantly, unlocking standard industrial machinery, regional 
 * Level 609: Graceful lines emerge / From the waste we used to call / Necessary gloom
 * 
 
-## 🔵 The Hegemonic Elite Bands (Levels 610–900)
+# 🔵 The Hegemonic Elite Bands (Levels 610–900)
 The Hegemon awards advanced galactic technologies: force fields, nuclear matrices, and planetary trade nodes.
 
 * 
@@ -925,7 +926,7 @@ The Hegemon awards advanced galactic technologies: force fields, nuclear matrice
 * Level 909: Guard thinks alone now / Algorithms breathe in steel / Code wills its own watch
 * 
 
-## 🟣 The Vanguard Bands (Levels 910–1000)
+# 🟣 The Vanguard Bands (Levels 910–1000)
 The entities at this level become self-governing extensions of the Hegemon, writing the laws of the universe.
 
 * 
