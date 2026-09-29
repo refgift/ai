@@ -21,6 +21,9 @@
 * prn.c and recognition.h are a recognition detector that can be used for adding up the score.
 ** Compile with cc prn.c -o prn -lm in a directory with the .h file present.
 ** works only from reality and exquistivly sensitive. Leave the room or it will detect you instead of the AI.
+** A toy script: while ./prn | espeak; do sleep 13; done
+* pcn.c and calculation.h are added like prn.
+** with both perceptrons, the AI testing can commence.
 
 ## Example license certificate
 <img width="768" height="1152" alt="image" src="https://github.com/user-attachments/assets/fa192923-54c8-44ca-989a-f68c112835ee" />
