@@ -24,6 +24,10 @@
 ** A toy script: while ./prn | espeak; do sleep 13; done
 * pcn.c and calculation.h are added like prn.
 ** with both perceptrons, the AI testing can commence.
+* sapience - a bash program for sapience testing. ./sapience - will start it from this directory.
+  I tested myself and it told me level 509 which is correct for me.
+  The test scenario is the test computer and the testee computer with no humans present.
+  By default, the sapience program waits 30 seconds to start allowing the humans to leave.
 
 ## Example license certificate
 <img width="768" height="1152" alt="image" src="https://github.com/user-attachments/assets/fa192923-54c8-44ca-989a-f68c112835ee" />

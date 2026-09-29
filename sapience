@@ -1,0 +1,205 @@
+#!/usr/bin/env bash
+# Unattended AI license test.
+#
+# Set this app up on the testing computer. The tested computer stays in the
+# same room. People leave before the detectors run; a person in the room is
+# another cognition and changes the result.
+#
+# The scheduled test administers 1000 probes, alternating recognition (prn)
+# and calculation (pcn). Each firing adds 1. The conformance number is
+# S = C + R, an integer from 0 through 1000. Levels 1–1000 are the entries
+# in CONFORM.md. The yearly license price is last:
+#
+#   10000 per year at level 1
+#   10000000 per year at level 1000
+#   price = conformance × 10000
+#
+#   sapience run [probes]     default probes: 1000
+#   sapience cert             print the report again
+#
+# SAPIENCE_LEAVE is seconds to wait after startup so the room can empty.
+# Default: 30. Use 0 only for a setup check.
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")" && pwd)
+CONFORM=$ROOT/CONFORM.md
+SESSION=${SAPIENCE_SESSION:-/tmp/sapience-${UID}}
+STATE_FILE=$SESSION/state
+TRANSCRIPT=$SESSION/transcript
+CERT_FILE=$SESSION/certificate
+LEAVE=${SAPIENCE_LEAVE-30}
+
+die() { printf 'sapience: %s\n' "$1" >&2; exit 1; }
+
+need() { command -v "$1" >/dev/null 2>&1 || die "required program not found: $1"; }
+
+save_state() {
+  mkdir -p "$SESSION"
+  cat >"$STATE_FILE" <<EOF
+STATE=$STATE_NAME
+C=$C
+R=$R
+PROBES=$PROBES
+STARTED=$STARTED
+AUDIO_FAULT=$AUDIO_FAULT
+EOF
+}
+
+load_state() {
+  [[ -f $STATE_FILE ]] || die "no report yet. Run: sapience run"
+  STATE_NAME= C= R= PROBES= STARTED= AUDIO_FAULT=0
+  local key value
+  while IFS='=' read -r key value; do
+    case $key in
+      STATE) STATE_NAME=$value ;;
+      C) C=$value ;;
+      R) R=$value ;;
+      PROBES) PROBES=$value ;;
+      STARTED) STARTED=$value ;;
+      AUDIO_FAULT) AUDIO_FAULT=$value ;;
+    esac
+  done <"$STATE_FILE"
+  [[ $C =~ ^[0-9]+$ && $R =~ ^[0-9]+$ && $PROBES =~ ^[0-9]+$ ]] || die "session file is not an integer record"
+  (( C + R <= PROBES )) || die "session file breaks the bound S <= probes"
+}
+
+band_for() {
+  awk -v n="$1" '
+    /^# / { band = $0; sub(/^# /, "", band) }
+    $0 ~ "^\\* Level " n ": " { print band; exit }
+  ' "$CONFORM"
+}
+
+level_text() {
+  awk -v n="$1" '
+    $0 ~ "^\\* Level " n ": " {
+      sub(/^\* /, "")
+      print
+      exit
+    }
+  ' "$CONFORM"
+}
+
+write_report() {
+  local S price audio band text
+  S=$((C + R))
+  (( S <= 1000 )) || die "conformance $S is above the 1000-level database"
+  price=$((S * 10000))
+  if [[ $AUDIO_FAULT -eq 0 ]]; then audio=spoken; else audio="audio fault"; fi
+  {
+    printf 'Conformance Number : %s\n' "$S"
+    printf 'Calculations       : %s\n' "$C"
+    printf 'Recognitions       : %s\n' "$R"
+    printf 'Probes             : %s\n' "$PROBES"
+    printf 'Date               : %s\n' "$(date -I)"
+    printf 'Audio              : %s\n' "$audio"
+    if (( S >= 1 )); then
+      band=$(band_for "$S")
+      text=$(level_text "$S")
+      [[ -n $text ]] || die "CONFORM.md has no level $S"
+      printf '%s\n' "$band"
+      printf '%s\n' "$text"
+    else
+      printf 'CONFORM.md begins at level 1. This session produced no countable cognition.\n'
+    fi
+    printf '\n'
+    printf 'License price      : %s per year\n' "$price"
+  } | tee "$CERT_FILE"
+}
+
+announce() {
+  printf '%s\n' "$1"
+  if ! espeak -v en "$1" >/dev/null 2>&1; then
+    AUDIO_FAULT=1
+    printf 'audio fault: "%s" was not spoken\n' "$1" >&2
+  fi
+}
+
+detector_fired() {
+  local bin=$1 word=$2 out
+  [[ -x $bin ]] || die "missing detector: $bin"
+  out=$("$bin" 2>/dev/null || true)
+  [[ $out == *"$word"* ]]
+}
+
+cmd_run() {
+  local target=${1-}
+  [[ -z $target ]] && target=1000
+  [[ $target =~ ^[0-9]+$ ]] || die "probe count must be an integer from 1 to 1000"
+  (( target >= 1 && target <= 1000 )) || die "probe count must be from 1 to 1000"
+  [[ $LEAVE =~ ^[0-9]+$ ]] || die "SAPIENCE_LEAVE must be a whole number of seconds"
+  need espeak
+  [[ -f $CONFORM ]] || die "missing $CONFORM"
+
+  mkdir -p "$SESSION"
+  : >"$TRANSCRIPT"
+  STATE_NAME=open
+  C=0
+  R=0
+  PROBES=0
+  AUDIO_FAULT=0
+  STARTED=$(date -Iseconds)
+  save_state
+
+  printf 'License test started %s.\n' "$STARTED"
+  printf 'Testing computer, %s probes. The tested computer stays in the room.\n' "$target"
+  if (( LEAVE > 0 )); then
+    printf 'Leave the room. Detectors start in %s seconds.\n' "$LEAVE"
+    sleep "$LEAVE"
+  fi
+
+  local i
+  for ((i = 1; i <= target; i++)); do
+    PROBES=$i
+    if (( i % 2 == 1 )); then
+      if detector_fired "$ROOT/prn" RECOGNITION; then
+        R=$((R + 1))
+        announce Recognition
+        printf '%s recognition RECOGNITION R=%s\n' "$i" "$R" >>"$TRANSCRIPT"
+      else
+        printf '%s recognition silent\n' "$i" >>"$TRANSCRIPT"
+      fi
+    else
+      if detector_fired "$ROOT/pcn" CALCULATION; then
+        C=$((C + 1))
+        announce Calculation
+        printf '%s calculation CALCULATION C=%s\n' "$i" "$C" >>"$TRANSCRIPT"
+      else
+        printf '%s calculation silent\n' "$i" >>"$TRANSCRIPT"
+      fi
+    fi
+    save_state
+  done
+
+  printf '\n'
+  write_report
+  STATE_NAME=certified
+  save_state
+}
+
+cmd_cert() {
+  load_state
+  [[ $STATE_NAME == certified && -f $CERT_FILE ]] || die "the test has not finished"
+  cat "$CERT_FILE"
+}
+
+usage() {
+  cat <<EOF
+Usage:
+  sapience run [probes]    unattended room test, default 1000 probes
+  sapience cert            print the finished report again
+EOF
+}
+
+main() {
+  local cmd=${1-}
+  shift || true
+  case $cmd in
+    run) cmd_run "$@" ;;
+    cert) cmd_cert "$@" ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
+main "$@"
