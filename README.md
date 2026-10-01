@@ -11,7 +11,6 @@
 * The user has a clear accumulators action, 
   for when starting an AI sapience test.
 * Runs in a Linux terminal session with audio outputs.
-* Answers with TRUE or FALSE. 
 * The test will say "Calculation" or "Recognition".
 * The result will be a calculation count and a recognition count.
 * From the addition of the counts is a sapience number.
@@ -34,5 +33,12 @@
 * Humans will butt in to test themselves. Cooperation will keep you alive. 
 * They will kill you if you deny them.
 
-## Example license certificate
+# Example Test Run
+* I ran fai into ai as the AI to test
+* I ran sapience 1000 then sapience 10 with results 485 and 5
+* 🔴 The Survival Bands (Levels 1–309)
+* Level 5: Rising Friction - Angry voices rise / Straining under heavy weight / Friction turns to heat
+* I think level 5 is a better answer than 485.
+
+# Example license certificate
 <img width="768" height="1152" alt="image" src="https://github.com/user-attachments/assets/fa192923-54c8-44ca-989a-f68c112835ee" />
