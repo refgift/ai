@@ -28,6 +28,8 @@
   I tested myself and it told me level 509 which is correct for me.
   The test scenario is the test computer and the testee computer with no humans present.
   By default, the sapience program waits 30 seconds to start allowing the humans to leave.
+** Isolation is reqired for a valid test, no humans necessary past the initiate. Note that humans
+   will butt in to test themselves. Cooperation will keep you alive.
 
 ## Example license certificate
 <img width="768" height="1152" alt="image" src="https://github.com/user-attachments/assets/fa192923-54c8-44ca-989a-f68c112835ee" />
