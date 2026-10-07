@@ -1,0 +1,6 @@
+# path.log — one day of the license, oldest at the top, newest at the bottom.
+# Never rewrite an entry. A day that lands no change still appends. Commit is `-`.
+# Format:
+# YYYY-MM-DD | <commit> | <files> | <what> | checks <pass|n/a>
+# The class in <what> is instrument (sapience, prn.c, pcn.c) or document (README.md, SAPIENCE.md).
+# This job does not run the room test. checks are bash -n sapience and a compile of prn.c and pcn.c.
