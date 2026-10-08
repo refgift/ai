@@ -25,7 +25,9 @@
 * with both perceptrons, the AI testing can commence.
 * sapience - a bash program for sapience testing. ./sapience - will start it from this directory.
   I tested myself and it told me level 509 which is correct for me.
-  The test scenario is the test computer and the testee computer with no humans present.
+  The test scenario is a customer git of this project at the customer site.
+  They have computer rooms with isolation. They run ./sapience there to test their AI in situ.
+  The machines in that room are the test computer and the testee computer, with no humans present.
   By default, the sapience program waits 30 seconds to start allowing the humans to leave.
 * Isolation is reqired for a valid test, no humans necessary past the initiate. 
 

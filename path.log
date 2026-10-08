@@ -3,4 +3,7 @@
 # Format:
 # YYYY-MM-DD | <commit> | <files> | <what> | checks <pass|n/a>
 # The class in <what> is instrument (sapience, prn.c, pcn.c) or document (README.md, SAPIENCE.md).
-# This job does not run the room test. checks are bash -n sapience and a compile of prn.c and pcn.c.
+# This job develops the software. It does not run the customer test.
+# checks are bash -n sapience, bash -n daily.sh, and a compile of prn.c and pcn.c.
+# While daily-work.md has an open item (`- [ ]`), that item is the day's change.
+

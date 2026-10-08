@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# One verified change a day for the sapience license, then a path.log line,
-# a push, and a Thunderbird compose. The room test is not this job.
+# One development step a day on the license software, then a path.log line,
+# a push, and a Thunderbird compose.
+# A customer gits this project at their site and runs sapience in an isolated room.
+# This job develops that software. It does not run the test.
 set -euo pipefail
 
 REPO="/home/lbd/Projects/ai"
@@ -9,8 +11,8 @@ STATE="${XDG_STATE_HOME:-$HOME/.local/state}/ai-daily"
 MAIL_TO="larry@refusetoown.com"
 OPENCODE="/home/lbd/.local/share/mise/installs/opencode/latest/opencode"
 WHAT_FILE="${REPO}/.ai-daily-what"
-MAX_FILES=2
-MAX_LINES=80
+MAX_FILES=3
+MAX_LINES=160
 
 mkdir -p "$STATE"
 chmod 700 "$STATE"
@@ -108,6 +110,8 @@ day_claimed=0
 day_logged=0
 outcome=""
 target=""
+from_work=0
+work_item=""
 
 restore_script() {
   if [[ -f "$STATE/script.bak" ]]; then
@@ -125,6 +129,7 @@ drop_new_untracked() {
 }
 
 reject_target() {
+  [[ "${from_work:-0}" == 1 ]] && return 0
   printf '%s\t%s\n' "$today" "$1" >>"$STATE/rejected"
 }
 
@@ -162,8 +167,11 @@ fi
 
 hour="$(date +%H)"
 min="$(date +%M)"
+# 08 and 09 are invalid octal. Force base 10 or 10:08 is treated as outside the window.
+hour=$((10#$hour))
+min=$((10#$min))
 in_window=0
-if [[ "$hour" == "10" && "$min" -le 20 ]]; then
+if [[ "$hour" -eq 10 && "$min" -le 20 ]]; then
   in_window=1
 fi
 if [[ "$mode" == "run" && "$in_window" == 0 ]]; then
@@ -233,12 +241,33 @@ if [[ "$mode" == "run" ]] && grep -q "^${today} |" path.log 2>/dev/null; then
   exit 0
 fi
 
-targets=(sapience prn.c pcn.c README.md SAPIENCE.md)
+work_item=""
+from_work=0
+if [[ -f daily-work.md ]]; then
+  work_item="$(grep -m1 '^- \[ \]' daily-work.md || true)"
+fi
+if [[ -n "$work_item" ]]; then
+  target="$(printf '%s\n' "$work_item" | sed -n 's/^- \[ \] \([^:][^:]*\):.*/\1/p')"
+  if [[ -z "$target" || ! -f "$target" ]]; then
+    log "fail: daily work names a missing file (${target:-none})"
+    outcome="fail: daily work names a missing file"
+    exit 0
+  fi
+  from_work=1
+  review_line="$(printf '%s\n' "$work_item" | sed 's/^- \[ \] //')"
+  case "$target" in
+    sapience|prn.c|pcn.c|ai.fst|fai.fst) change_class="instrument" ;;
+    daily.sh) change_class="job" ;;
+    *) change_class="document" ;;
+  esac
+  log "work ${target} ${review_line}"
+else
+targets=(prn.c pcn.c ai.fst fai.fst sapience daily.sh README.md SAPIENCE.md)
 doy="$(date +%j)"
 doy=$((10#$doy))
 picked=""
-for offset in 0 1 2 3 4; do
-  cand="${targets[$(( (doy + offset) % 5 ))]}"
+for offset in 0 1 2 3 4 5 6 7; do
+  cand="${targets[$(( (doy + offset) % 8 ))]}"
   recent=0
   if [[ -f "$STATE/rejected" ]]; then
     recent="$(awk -v today="$today" -v cand="$cand" '
@@ -269,10 +298,12 @@ if [[ -z "$picked" ]]; then
 fi
 target="$picked"
 case "$target" in
-  sapience|prn.c|pcn.c) change_class="instrument" ;;
+  sapience|prn.c|pcn.c|ai.fst|fai.fst) change_class="instrument" ;;
+  daily.sh) change_class="job" ;;
   *) change_class="document" ;;
 esac
 log "target ${target} class ${change_class}"
+fi
 if [[ "$mode" == "dry" ]]; then
   exit 0
 fi
@@ -286,13 +317,15 @@ if [[ -z "$OPENCODE" || ! -x "$OPENCODE" ]]; then
   exit 1
 fi
 
+if [[ "$from_work" == 1 ]]; then
+  log "assigned from daily-work.md"
+else
 review_head="$(git rev-parse HEAD)"
 review_prompt=$(cat <<EOF
 Read ${REPO}/${target}. Do not edit any file. Do not commit. Do not run sapience, prn, or pcn.
 
-This is the daily pass on the AI license. The room test is not yours to run.
-Name one verified fix in this file, or decline.
-Do not change the price formula, the level text in CONFORM.md, or a detector weight.
+This is a software-development pass. Improve the named file by one verified step.
+The customer runs the test if they want to. Do not run sapience, prn, or pcn.
 If you cannot verify one safe change, print exactly:
 SKIP
 Otherwise print exactly one line and nothing else:
@@ -330,6 +363,7 @@ if [[ -z "$review_line" || "$review_line" == "SKIP" ]]; then
 fi
 review_line="${review_line#CHANGE: }"
 log "review assigned: ${review_line}"
+fi
 
 HEAD="$(git rev-parse HEAD)"
 git ls-files --others --exclude-standard | LC_ALL=C sort >"$STATE/untracked.before"
@@ -337,20 +371,28 @@ cp -a "$0" "$STATE/script.bak"
 : >"$STATE/agent-files"
 rm -f "$WHAT_FILE"
 
+stay_rule="Stay inside the target. prn.c may touch recognition.h. pcn.c may touch calculation.h. Nothing else."
+if [[ "$target" == "daily.sh" ]]; then
+  stay_rule="The target is daily.sh. Edit that file only."
+fi
 prompt=$(cat <<EOF
-You are the daily maintainer of ${REPO}. Make exactly one change, then stop.
+You are the daily developer of ${REPO}. Make exactly one change, then stop.
 
 Target: ${target}
 Class: ${change_class}
 Assigned change, and only this change: ${review_line}
 
+The product is the test, the testing AI, the perceptrons, and the documentation.
+A customer gits this project at their site and runs sapience in an isolated computer room to test their AI in situ.
+You develop that software. You do not run the test.
+
 Rules:
-- One verified edit of that assignment. A wrong comment is worse than silence.
-- Do not run sapience, prn, or pcn. The room must stay empty for a real test, and this job is not that test.
-- Do not change the yearly price, CONFORM.md, or a detector weight.
-- Do not commit, push, amend, tag, or edit path.log, daily.sh, .git, or any secret.
-- Stay inside the target. prn.c may touch recognition.h. pcn.c may touch calculation.h. Nothing else.
-- If the honest fix cannot be one edit under ${MAX_LINES} lines, do not edit. Write exactly SKIP to ${WHAT_FILE} and stop.
+- One development step on that assignment. A wrong comment is worse than silence.
+- Do not run sapience, prn, or pcn.
+- Do not commit, push, amend, tag, or edit path.log, daily-work.md, .git, or any secret.
+- Edit daily.sh only when it is the target.
+- ${stay_rule}
+- If the step cannot be one edit under ${MAX_LINES} lines, do not edit. Write exactly SKIP to ${WHAT_FILE} and stop.
 - Otherwise write one line to ${WHAT_FILE}: what changed, no pipe characters, under 100 characters. Then stop.
 EOF
 )
@@ -369,6 +411,13 @@ if [[ "$(git branch --show-current)" != "$BRANCH" ]]; then
 fi
 if [[ "$(git rev-parse HEAD)" != "$HEAD" ]]; then
   git reset --mixed "$HEAD"
+fi
+# The running script must stay the one bash is reading. Keep a development
+# edit of daily.sh aside and put it back only after this process is done.
+agent_daily=0
+if [[ "$target" == "daily.sh" && -f daily.sh && -f "$STATE/script.bak" ]] && ! cmp -s daily.sh "$STATE/script.bak"; then
+  cp -a daily.sh "$STATE/daily.sh.new"
+  agent_daily=1
 fi
 restore_script
 rm -f "$WHAT_FILE.tmp"
@@ -397,6 +446,8 @@ allowed() {
   [[ "$f" == "$target" ]] && return 0
   [[ "$target" == "prn.c" && "$f" == "recognition.h" ]] && return 0
   [[ "$target" == "pcn.c" && "$f" == "calculation.h" ]] && return 0
+  [[ "$target" == "fai.fst" && "$f" == "ai.fst" ]] && return 0
+  [[ "$target" == "ai.fst" && "$f" == "fai.fst" ]] && return 0
   return 1
 }
 
@@ -406,7 +457,8 @@ while IFS= read -r f; do
   [[ -n "$f" ]] || continue
   file_count=$((file_count + 1))
   case "$f" in
-    *../*|/*|.git/*|daily.sh|path.log|CONFORM.md|CONFORM.pdf|*.env|*.bak|*.bak.*) bad=1 ;;
+    *../*|/*|.git/*|path.log|daily-work.md|CONFORM.pdf|*.env|*.bak|*.bak.*) bad=1 ;;
+    daily.sh) [[ "$target" == "daily.sh" ]] || bad=1 ;;
   esac
   if ! allowed "$f"; then
     bad=1
@@ -441,7 +493,18 @@ if git diff | grep -E 'BEGIN (OPENSSH|RSA|PRIVATE) KEY|AKIA[0-9A-Z]{16}' >/dev/n
   exit 1
 fi
 
-if ! bash -n sapience || ! cc -std=c11 -O2 -Wall -o "$STATE/prn" prn.c -lm || ! cc -std=c11 -O2 -Wall -o "$STATE/pcn" pcn.c -lm; then
+if [[ "$agent_daily" == 1 ]]; then
+  if ! bash -n "$STATE/daily.sh.new"; then
+    log "fail: daily.sh check failed"
+    outcome="fail: daily.sh check failed"
+    undo_agent_files
+    agent_started=0
+    exit 1
+  fi
+  cp -a "$STATE/daily.sh.new" daily.sh
+  grep -qxF 'daily.sh' "$STATE/agent-files" || echo daily.sh >>"$STATE/agent-files"
+fi
+if ! bash -n sapience || ! bash -n daily.sh || ! cc -std=c11 -O2 -Wall -o "$STATE/prn" prn.c -lm || ! cc -std=c11 -O2 -Wall -o "$STATE/pcn" pcn.c -lm; then
   log "fail: checks failed"
   outcome="fail: checks failed"
   undo_agent_files
@@ -476,8 +539,24 @@ code_hash="$(git rev-parse --short HEAD)"
 
 printf '%s | %s | %s | %s | checks pass\n' \
   "$today" "$code_hash" "$files" "$what" >>path.log
+if [[ "$from_work" == 1 ]]; then
+  awk -v d="$today" '
+    BEGIN { done = 0 }
+    {
+      if (!done && $0 ~ /^- \[ \]/) {
+        sub(/^- \[ \]/, "- [x] " d " ")
+        done = 1
+      }
+      print
+    }
+  ' daily-work.md >"$STATE/daily-work.new"
+  mv "$STATE/daily-work.new" daily-work.md
+fi
 day_logged=1
 git add path.log
+if [[ "$from_work" == 1 ]]; then
+  git add daily-work.md
+fi
 git commit -m "path.log: ${today} ${what}"
 committed=1
 mail_day
