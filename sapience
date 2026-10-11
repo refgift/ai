@@ -109,8 +109,9 @@ write_report() {
 }
 
 announce() {
+  sleep 0.5
   printf '%s\n' "$1"
-  if ! espeak -v en "$1" >/dev/null 2>&1; then
+  if ! espeak -v en "$1"; then
     AUDIO_FAULT=1
     printf 'audio fault: "%s" was not spoken\n' "$1" >&2
   fi
