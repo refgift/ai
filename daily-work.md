@@ -4,8 +4,6 @@
 # This job develops that software. 
 # When the list is empty, the job still develops one of sapience, prn.c, pcn.c, ai.fst, fai.fst, or daily.sh.
 
-- [ ] prn.c: One development step on the recognition perceptron. recognition.h may change with it, including its weights. 
-- [ ] pcn.c: One development step on the calculation perceptron. calculation.h may change with it, including its weights. 
 - [ ] ai.fst: One development step on the testing AI a customer tests in situ. fai.fst may change with it. 
 - [ ] sapience: One development step on the test harness. 
 - [ ] daily.sh: One development step on this job so the next day develops the software more safely. 
