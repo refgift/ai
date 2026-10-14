@@ -165,44 +165,6 @@ if [[ "$(git branch --show-current)" != "$BRANCH" ]]; then
   exit 0
 fi
 
-hour="$(date +%H)"
-min="$(date +%M)"
-# 08 and 09 are invalid octal. Force base 10 or 10:08 is treated as outside the window.
-hour=$((10#$hour))
-min=$((10#$min))
-in_window=0
-if [[ "$hour" -eq 10 && "$min" -le 20 ]]; then
-  in_window=1
-fi
-if [[ "$mode" == "run" && "$in_window" == 0 ]]; then
-  sid="$(loginctl list-sessions --no-legend | awk '$3=="lbd" && $0 ~ /user/ {print $1; exit}')"
-  idle="no"
-  if [[ -n "$sid" ]]; then
-    idle="$(loginctl show-session "$sid" -p IdleHint --value 2>/dev/null || echo no)"
-  fi
-  if [[ "$idle" != "yes" ]]; then
-    log "skip: catch-up while session is active"
-    exit 0
-  fi
-fi
-
-if [[ "$mode" == "run" ]]; then
-  day_claimed=1
-fi
-
-if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
-  if grep -q "^${today} |" path.log 2>/dev/null; then
-    commit_path_log "path.log: ${today}" || true
-    day_logged=1
-    day_claimed=0
-    log "skip: path.log already has ${today}"
-    exit 0
-  fi
-  log "skip: tracked tree dirty"
-  outcome="fail: tracked tree dirty"
-  exit 0
-fi
-
 if [[ -f "$STATE/pending-push" ]]; then
   want="$(cat "$STATE/pending-push")"
   git fetch origin "$BRANCH" || { log "fail: fetch while retrying push"; outcome="fail: fetch while retrying push"; exit 1; }
@@ -211,12 +173,6 @@ if [[ -f "$STATE/pending-push" ]]; then
     rm -f "$STATE/pending-push"
     log "pushed pending ${want}"
   fi
-fi
-
-if [[ "$mode" == "run" ]] && grep -q "^${today} |" path.log 2>/dev/null; then
-  log "skip: path.log already has ${today}"
-  day_claimed=0
-  exit 0
 fi
 
 if [[ "$mode" == "dry" ]]; then
@@ -235,12 +191,6 @@ if [[ "$behind" != "0" ]]; then
 fi
 fi
 
-if [[ "$mode" == "run" ]] && grep -q "^${today} |" path.log 2>/dev/null; then
-  log "skip: path.log already has ${today} after pull"
-  day_claimed=0
-  exit 0
-fi
-
 work_item=""
 from_work=0
 if [[ -f daily-work.md ]]; then
@@ -256,13 +206,13 @@ if [[ -n "$work_item" ]]; then
   from_work=1
   review_line="$(printf '%s\n' "$work_item" | sed 's/^- \[ \] //')"
   case "$target" in
-    sapience|prn.c|pcn.c|ai.fst|fai.fst) change_class="instrument" ;;
+    sapience|ai.fst|fai.fst) change_class="instrument" ;;
     daily.sh) change_class="job" ;;
     *) change_class="document" ;;
   esac
   log "work ${target} ${review_line}"
 else
-targets=(prn.c pcn.c ai.fst fai.fst sapience daily.sh README.md SAPIENCE.md)
+targets=(ai.fst fai.fst sapience daily.sh README.md SAPIENCE.md)
 doy="$(date +%j)"
 doy=$((10#$doy))
 picked=""
