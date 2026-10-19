@@ -1,5 +1,5 @@
 # Testing AI for licensing.
-* Counting calculations and recognitions adds up to AI sapience level.
+* Counting calculations and recognitions or detections adds up to AI sapience level.
 * Licensing price depends on sapience level.
 * Formal specification of the integer sapience number: [SAPIENCE.md](SAPIENCE.md).
 
